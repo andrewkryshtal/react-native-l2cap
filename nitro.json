@@ -1,0 +1,30 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": [
+    "l2cap"
+  ],
+  "ios": {
+    "iosModuleName": "L2cap"
+  },
+  "android": {
+    "androidNamespace": [
+      "l2cap"
+    ],
+    "androidCxxLibName": "L2cap"
+  },
+  "autolinking": {
+    "L2cap": {
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridL2cap"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridL2cap"
+      }
+    }
+  },
+  "ignorePaths": [
+    "**/node_modules"
+  ]
+}
