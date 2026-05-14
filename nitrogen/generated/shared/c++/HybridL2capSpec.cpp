@@ -14,7 +14,14 @@ namespace margelo::nitro::l2cap {
     HybridObject::loadHybridMethods();
     // load custom methods/properties
     registerHybrids(this, [](Prototype& prototype) {
-      prototype.registerHybridMethod("sum", &HybridL2capSpec::sum);
+      prototype.registerHybridGetter("isConnected", &HybridL2capSpec::getIsConnected);
+      prototype.registerHybridMethod("startScan", &HybridL2capSpec::startScan);
+      prototype.registerHybridMethod("stopScan", &HybridL2capSpec::stopScan);
+      prototype.registerHybridMethod("onDeviceFound", &HybridL2capSpec::onDeviceFound);
+      prototype.registerHybridMethod("connect", &HybridL2capSpec::connect);
+      prototype.registerHybridMethod("disconnect", &HybridL2capSpec::disconnect);
+      prototype.registerHybridMethod("sendData", &HybridL2capSpec::sendData);
+      prototype.registerHybridMethod("onDataReceived", &HybridL2capSpec::onDataReceived);
     });
   }
 

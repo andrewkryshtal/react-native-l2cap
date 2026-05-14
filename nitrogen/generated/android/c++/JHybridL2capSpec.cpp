@@ -7,9 +7,22 @@
 
 #include "JHybridL2capSpec.hpp"
 
+// Forward declaration of `Device` to properly resolve imports.
+namespace margelo::nitro::l2cap { struct Device; }
 
-
-
+#include <NitroModules/Promise.hpp>
+#include <NitroModules/JPromise.hpp>
+#include <NitroModules/JUnit.hpp>
+#include "Device.hpp"
+#include <functional>
+#include "JFunc_void_Device.hpp"
+#include <NitroModules/JNICallable.hpp>
+#include "JDevice.hpp"
+#include <string>
+#include <optional>
+#include <NitroModules/ArrayBuffer.hpp>
+#include <NitroModules/JArrayBuffer.hpp>
+#include "JFunc_void_std__shared_ptr_ArrayBuffer_.hpp"
 
 namespace margelo::nitro::l2cap {
 
@@ -41,13 +54,51 @@ namespace margelo::nitro::l2cap {
   }
 
   // Properties
-  
+  bool JHybridL2capSpec::getIsConnected() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jboolean()>("isConnected");
+    auto __result = method(_javaPart);
+    return static_cast<bool>(__result);
+  }
 
   // Methods
-  double JHybridL2capSpec::sum(double num1, double num2) {
-    static const auto method = _javaPart->javaClassStatic()->getMethod<double(double /* num1 */, double /* num2 */)>("sum");
-    auto __result = method(_javaPart, num1, num2);
-    return __result;
+  void JHybridL2capSpec::startScan() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void()>("startScan");
+    method(_javaPart);
+  }
+  void JHybridL2capSpec::stopScan() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void()>("stopScan");
+    method(_javaPart);
+  }
+  void JHybridL2capSpec::onDeviceFound(const std::function<void(const Device& /* device */)>& callback) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void_Device::javaobject> /* callback */)>("onDeviceFound_cxx");
+    method(_javaPart, JFunc_void_Device_cxx::fromCpp(callback));
+  }
+  std::shared_ptr<Promise<void>> JHybridL2capSpec::connect(const std::string& address, double psm, bool secure) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* address */, double /* psm */, jboolean /* secure */)>("connect");
+    auto __result = method(_javaPart, jni::make_jstring(address), psm, secure);
+    return [&]() {
+      auto __promise = Promise<void>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
+        __promise->resolve();
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
+  void JHybridL2capSpec::disconnect() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void()>("disconnect");
+    method(_javaPart);
+  }
+  void JHybridL2capSpec::sendData(const std::shared_ptr<ArrayBuffer>& data) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JArrayBuffer::javaobject> /* data */)>("sendData");
+    method(_javaPart, JArrayBuffer::wrap(data));
+  }
+  void JHybridL2capSpec::onDataReceived(const std::function<void(const std::shared_ptr<ArrayBuffer>& /* data */)>& callback) {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<void(jni::alias_ref<JFunc_void_std__shared_ptr_ArrayBuffer_::javaobject> /* callback */)>("onDataReceived_cxx");
+    method(_javaPart, JFunc_void_std__shared_ptr_ArrayBuffer__cxx::fromCpp(callback));
   }
 
 } // namespace margelo::nitro::l2cap

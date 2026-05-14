@@ -8,14 +8,22 @@
 #pragma once
 
 // Forward declarations of C++ defined types
+// Forward declaration of `Device` to properly resolve imports.
+namespace margelo::nitro::l2cap { struct Device; }
 // Forward declaration of `HybridL2capSpec` to properly resolve imports.
 namespace margelo::nitro::l2cap { class HybridL2capSpec; }
 
 // Include C++ defined types
+#include "Device.hpp"
 #include "HybridL2capSpec.hpp"
+#include <NitroModules/ArrayBuffer.hpp>
+#include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
+#include <functional>
 #include <memory>
+#include <optional>
+#include <string>
 
 // C++ helpers for Swift
 #include "L2cap-Swift-Cxx-Bridge.hpp"

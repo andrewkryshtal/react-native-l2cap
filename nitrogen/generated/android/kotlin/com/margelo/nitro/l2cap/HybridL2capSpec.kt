@@ -10,6 +10,8 @@ package com.margelo.nitro.l2cap
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
+import com.margelo.nitro.core.Promise
+import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.HybridObject
 
 /**
@@ -25,12 +27,48 @@ import com.margelo.nitro.core.HybridObject
 )
 abstract class HybridL2capSpec: HybridObject() {
   // Properties
-  
+  @get:DoNotStrip
+  @get:Keep
+  abstract val isConnected: Boolean
 
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun sum(num1: Double, num2: Double): Double
+  abstract fun startScan(): Unit
+  
+  @DoNotStrip
+  @Keep
+  abstract fun stopScan(): Unit
+  
+  abstract fun onDeviceFound(callback: (device: Device) -> Unit): Unit
+  
+  @DoNotStrip
+  @Keep
+  private fun onDeviceFound_cxx(callback: Func_void_Device): Unit {
+    val __result = onDeviceFound(callback)
+    return __result
+  }
+  
+  @DoNotStrip
+  @Keep
+  abstract fun connect(address: String, psm: Double, secure: Boolean): Promise<Unit>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun disconnect(): Unit
+  
+  @DoNotStrip
+  @Keep
+  abstract fun sendData(data: ArrayBuffer): Unit
+  
+  abstract fun onDataReceived(callback: (data: ArrayBuffer) -> Unit): Unit
+  
+  @DoNotStrip
+  @Keep
+  private fun onDataReceived_cxx(callback: Func_void_std__shared_ptr_ArrayBuffer_): Unit {
+    val __result = onDataReceived(callback)
+    return __result
+  }
 
   // Default implementation of `HybridObject.toString()`
   override fun toString(): String {

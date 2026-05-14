@@ -14,6 +14,38 @@
 
 namespace margelo::nitro::l2cap::bridge::swift {
 
+  // pragma MARK: std::function<void(const Device& /* device */)>
+  Func_void_Device create_Func_void_Device(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = L2cap::Func_void_Device::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const Device& device) mutable -> void {
+      swiftClosure.call(device);
+    };
+  }
+  
+  // pragma MARK: std::function<void()>
+  Func_void create_Func_void(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = L2cap::Func_void::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)]() mutable -> void {
+      swiftClosure.call();
+    };
+  }
+  
+  // pragma MARK: std::function<void(const std::exception_ptr& /* error */)>
+  Func_void_std__exception_ptr create_Func_void_std__exception_ptr(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = L2cap::Func_void_std__exception_ptr::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::exception_ptr& error) mutable -> void {
+      swiftClosure.call(error);
+    };
+  }
+  
+  // pragma MARK: std::function<void(const std::shared_ptr<ArrayBuffer>& /* data */)>
+  Func_void_std__shared_ptr_ArrayBuffer_ create_Func_void_std__shared_ptr_ArrayBuffer_(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = L2cap::Func_void_std__shared_ptr_ArrayBuffer_::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::shared_ptr<ArrayBuffer>& data) mutable -> void {
+      swiftClosure.call(ArrayBufferHolder(data));
+    };
+  }
+  
   // pragma MARK: std::shared_ptr<HybridL2capSpec>
   std::shared_ptr<HybridL2capSpec> create_std__shared_ptr_HybridL2capSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
     L2cap::HybridL2capSpec_cxx swiftPart = L2cap::HybridL2capSpec_cxx::fromUnsafe(swiftUnsafePointer);

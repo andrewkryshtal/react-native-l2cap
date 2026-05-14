@@ -16,6 +16,8 @@
 #include <NitroModules/HybridObjectRegistry.hpp>
 
 #include "JHybridL2capSpec.hpp"
+#include "JFunc_void_Device.hpp"
+#include "JFunc_void_std__shared_ptr_ArrayBuffer_.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::l2cap {
@@ -27,7 +29,7 @@ int initialize(JavaVM* vm) {
 }
 
 struct JHybridL2capSpecImpl: public jni::JavaClass<JHybridL2capSpecImpl, JHybridL2capSpec::JavaPart> {
-  static constexpr auto kJavaDescriptor = "Lcom/l2cap/HybridL2cap;";
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/l2cap/HybridL2cap;";
   static std::shared_ptr<JHybridL2capSpec> create() {
     static const auto constructorFn = javaClassStatic()->getConstructor<JHybridL2capSpecImpl::javaobject()>();
     jni::local_ref<JHybridL2capSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
@@ -41,6 +43,8 @@ void registerAllNatives() {
 
   // Register native JNI methods
   margelo::nitro::l2cap::JHybridL2capSpec::CxxPart::registerNatives();
+  margelo::nitro::l2cap::JFunc_void_Device_cxx::registerNatives();
+  margelo::nitro::l2cap::JFunc_void_std__shared_ptr_ArrayBuffer__cxx::registerNatives();
 
   // Register Nitro Hybrid Objects
   HybridObjectRegistry::registerHybridObjectConstructor(

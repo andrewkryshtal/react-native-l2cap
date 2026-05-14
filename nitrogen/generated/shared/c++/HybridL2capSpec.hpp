@@ -13,9 +13,14 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
+// Forward declaration of `Device` to properly resolve imports.
+namespace margelo::nitro::l2cap { struct Device; }
 
-
-
+#include "Device.hpp"
+#include <functional>
+#include <NitroModules/Promise.hpp>
+#include <string>
+#include <NitroModules/ArrayBuffer.hpp>
 
 namespace margelo::nitro::l2cap {
 
@@ -44,11 +49,17 @@ namespace margelo::nitro::l2cap {
 
     public:
       // Properties
-      
+      virtual bool getIsConnected() = 0;
 
     public:
       // Methods
-      virtual double sum(double num1, double num2) = 0;
+      virtual void startScan() = 0;
+      virtual void stopScan() = 0;
+      virtual void onDeviceFound(const std::function<void(const Device& /* device */)>& callback) = 0;
+      virtual std::shared_ptr<Promise<void>> connect(const std::string& address, double psm, bool secure) = 0;
+      virtual void disconnect() = 0;
+      virtual void sendData(const std::shared_ptr<ArrayBuffer>& data) = 0;
+      virtual void onDataReceived(const std::function<void(const std::shared_ptr<ArrayBuffer>& /* data */)>& callback) = 0;
 
     protected:
       // Hybrid Setup

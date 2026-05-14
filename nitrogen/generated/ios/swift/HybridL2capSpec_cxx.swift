@@ -121,18 +121,106 @@ open class HybridL2capSpec_cxx {
   }
 
   // Properties
-  
+  public final var isConnected: Bool {
+    @inline(__always)
+    get {
+      return self.__implementation.isConnected
+    }
+  }
 
   // Methods
   @inline(__always)
-  public final func sum(num1: Double, num2: Double) -> bridge.Result_double_ {
+  public final func startScan() -> bridge.Result_void_ {
     do {
-      let __result = try self.__implementation.sum(num1: num1, num2: num2)
-      let __resultCpp = __result
-      return bridge.create_Result_double_(__resultCpp)
+      try self.__implementation.startScan()
+      return bridge.create_Result_void_()
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_double_(__exceptionPtr)
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func stopScan() -> bridge.Result_void_ {
+    do {
+      try self.__implementation.stopScan()
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func onDeviceFound(callback: bridge.Func_void_Device) -> bridge.Result_void_ {
+    do {
+      try self.__implementation.onDeviceFound(callback: { () -> (Device) -> Void in
+        let __wrappedFunction = bridge.wrap_Func_void_Device(callback)
+        return { (__device: Device) -> Void in
+          __wrappedFunction.call(__device)
+        }
+      }())
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func connect(address: std.string, psm: Double, secure: Bool) -> bridge.Result_std__shared_ptr_Promise_void___ {
+    do {
+      let __result = try self.__implementation.connect(address: String(address), psm: psm, secure: secure)
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_void__ in
+        let __promise = bridge.create_std__shared_ptr_Promise_void__()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_void__(__promise)
+        __result
+          .then({ __result in __promiseHolder.resolve() })
+          .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
+        return __promise
+      }()
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__resultCpp)
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_std__shared_ptr_Promise_void___(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func disconnect() -> bridge.Result_void_ {
+    do {
+      try self.__implementation.disconnect()
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func sendData(data: ArrayBuffer) -> bridge.Result_void_ {
+    do {
+      try self.__implementation.sendData(data: data)
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func onDataReceived(callback: bridge.Func_void_std__shared_ptr_ArrayBuffer_) -> bridge.Result_void_ {
+    do {
+      try self.__implementation.onDataReceived(callback: { () -> (ArrayBuffer) -> Void in
+        let __wrappedFunction = bridge.wrap_Func_void_std__shared_ptr_ArrayBuffer_(callback)
+        return { (__data: ArrayBuffer) -> Void in
+          __wrappedFunction.call(__data)
+        }
+      }())
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
     }
   }
 }

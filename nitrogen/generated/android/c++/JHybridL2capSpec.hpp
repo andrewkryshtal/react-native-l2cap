@@ -50,11 +50,17 @@ namespace margelo::nitro::l2cap {
 
   public:
     // Properties
-    
+    bool getIsConnected() override;
 
   public:
     // Methods
-    double sum(double num1, double num2) override;
+    void startScan() override;
+    void stopScan() override;
+    void onDeviceFound(const std::function<void(const Device& /* device */)>& callback) override;
+    std::shared_ptr<Promise<void>> connect(const std::string& address, double psm, bool secure) override;
+    void disconnect() override;
+    void sendData(const std::shared_ptr<ArrayBuffer>& data) override;
+    void onDataReceived(const std::function<void(const std::shared_ptr<ArrayBuffer>& /* data */)>& callback) override;
 
   private:
     jni::global_ref<JHybridL2capSpec::JavaPart> _javaPart;

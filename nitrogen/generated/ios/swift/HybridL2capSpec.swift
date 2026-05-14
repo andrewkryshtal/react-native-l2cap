@@ -10,10 +10,16 @@ import NitroModules
 /// See ``HybridL2capSpec``
 public protocol HybridL2capSpec_protocol: HybridObject {
   // Properties
-  
+  var isConnected: Bool { get }
 
   // Methods
-  func sum(num1: Double, num2: Double) throws -> Double
+  func startScan() throws -> Void
+  func stopScan() throws -> Void
+  func onDeviceFound(callback: @escaping (_ device: Device) -> Void) throws -> Void
+  func connect(address: String, psm: Double, secure: Bool) throws -> Promise<Void>
+  func disconnect() throws -> Void
+  func sendData(data: ArrayBuffer) throws -> Void
+  func onDataReceived(callback: @escaping (_ data: ArrayBuffer) -> Void) throws -> Void
 }
 
 public extension HybridL2capSpec_protocol {
