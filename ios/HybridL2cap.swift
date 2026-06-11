@@ -207,7 +207,7 @@ final class HybridL2cap: HybridL2capSpec {
       }
 
       let size = copy.size
-      let bytes = copy.data.assumingMemoryBound(to: UInt8.self)
+      let bytes = copy.data
       var written = 0
       while written < size {
         guard output.hasSpaceAvailable else {
