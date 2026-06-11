@@ -1,4 +1,4 @@
-package com.l2cap
+package com.margelo.nitro.l2cap
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -17,8 +17,6 @@ import androidx.core.content.ContextCompat
 import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.ArrayBuffer
 import com.margelo.nitro.core.Promise
-import com.margelo.nitro.l2cap.Device
-import com.margelo.nitro.l2cap.HybridL2capSpec
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
