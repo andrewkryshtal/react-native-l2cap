@@ -1,6 +1,6 @@
 {
   "name": "react-native-l2cap",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "react-native-l2cap is a react native package built with Nitro, for making L2CAP LE CoC connection between different devices",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
